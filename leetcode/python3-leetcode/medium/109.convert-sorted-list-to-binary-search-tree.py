@@ -44,6 +44,19 @@
 #
 
 
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+
 # @lc code=start
 # Definition for singly-linked list.
 # class ListNode:
@@ -56,34 +69,46 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
+
 class Solution(object):
     def sortedListToBST(self, head):
-        """
-        :type head: Optional[ListNode]
-        :rtype: Optional[TreeNode]
-        """
         if not head:
             return None
 
         if not head.next:
-            return TreeNode(head.val)
+            return TreeNode(val=head.val)
+        
+        slow = head
+        fast
 
-        # Find the middle element of the linked list
-        slow, fast = head, head.next.next
-        while fast and fast.next:
-            slow = slow.next
-            fast = fast.next.next
+    # def sortedListToBST(self, head):
+    #     """
+    #     :type head: Optional[ListNode]
+    #     :rtype: Optional[TreeNode]
+    #     """
+    #     if not head:
+    #         return None
 
-        # Create a new TreeNode with the middle element as the root
-        root = TreeNode(slow.next.val)
+    #     if not head.next:
+    #         return TreeNode(head.val)
 
-        # Recursively construct the left and right subtrees
-        right_head = slow.next.next
-        slow.next = None
-        root.left = self.sortedListToBST(head)
-        root.right = self.sortedListToBST(right_head)
+    #     # Find the middle element of the linked list
+    #     slow, fast = head, head.next.next
+    #     while fast and fast.next:
+    #         slow = slow.next
+    #         fast = fast.next.next
 
-        return root
+    #     # Create a new TreeNode with the middle element as the root
+    #     root = TreeNode(slow.next.val)
+
+    #     # Recursively construct the left and right subtrees
+    #     right_head = slow.next.next
+    #     slow.next = None
+    #     root.left = self.sortedListToBST(head)
+    #     root.right = self.sortedListToBST(right_head)
+
+    #     return root
 
 
 # @lc code=end

@@ -49,46 +49,70 @@
 # @lc code=start
 class Solution(object):
     def longestConsecutive(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        # If list is empty
-        if nums == []:
+        if not nums:
             return 0
 
-        # Sort the list
-        nums = sorted(nums)
+        nums.sort(key=lambda x: x)
+        lookup = {nums[-1]: False}
+        for idx in range(len(nums) - 1):
+            if nums[idx] + 1 == nums[idx + 1]:
+                lookup[nums[idx]] = True
+            else:
+                lookup[nums[idx]] = False
 
-        # Create Dictionary
-        maps = {}
-        for i in range(len(nums)):
-            try:
-                if nums[i] + 1 == nums[i + 1]:
-                    maps[nums[i]] = 0
-                else:
-                    maps[nums[i]] = 1
-            except:  # when (i+1) == len(nums)
-                maps[nums[i]] = 1
-                break
+        keys = sorted(lookup.keys())
 
-        # Set counter variable (count) and max varialble (maxi)
-        count = 1
-        maxi = 1
+        cursor = 1
+        longest = 1
+        for k in keys:
+            if lookup[k]:
+                cursor += 1
+            else:
+                longest = max(longest, cursor)
+                cursor = 1
+        return longest
 
-        # Sort the keys
-        for i in sorted(maps.keys()):
-            if maps[i] == 0:
-                count += 1  # Count the number of 0's
-            if maps[i] == 1:
-                if maxi < count:  # Compare max count value
-                    maxi = count
-                count = 1  # Reset count value
-                continue
+    # def longestConsecutive(self, nums):
+    #     """
+    #     :type nums: List[int]
+    #     :rtype: int
+    #     """
+    #     # If list is empty
+    #     if nums == []:
+    #         return 0
 
-        return maxi
+    #     # Sort the list
+    #     nums = sorted(nums)
+
+    #     # Create Dictionary
+    #     maps = {}
+    #     for i in range(len(nums)):
+    #         try:
+    #             if nums[i] + 1 == nums[i + 1]:
+    #                 maps[nums[i]] = 0
+    #             else:
+    #                 maps[nums[i]] = 1
+    #         except:  # when (i+1) == len(nums)
+    #             maps[nums[i]] = 1
+    #             break
+
+    #     # Set counter variable (count) and max varialble (maxi)
+    #     count = 1
+    #     maxi = 1
+
+    #     # Sort the keys
+    #     for i in sorted(maps.keys()):
+    #         if maps[i] == 0:
+    #             count += 1  # Count the number of 0's
+    #         if maps[i] == 1:
+    #             if maxi < count:  # Compare max count value
+    #                 maxi = count
+    #             count = 1  # Reset count value
+    #             continue
+
+    #     return maxi
 
 
 # @lc code=end
 
-Solution().longestConsecutive([0,3,7,2,5,8,4,6,0,1])
+Solution().longestConsecutive([0, 3, 7, 2, 5, 5, 8, 4, 6, 0, 1])

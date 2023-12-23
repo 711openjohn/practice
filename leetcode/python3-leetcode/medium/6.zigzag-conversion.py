@@ -73,29 +73,53 @@
 # @lc code=start
 class Solution:
     def convert(self, s: str, numRows: int) -> str:
-        if len(s) == 0:
+        if len(s) == 1:
             return s
         if numRows == 1:
             return s
 
-        result = []
-        for _ in range(numRows):
-            result.append([])
+        temp = [""] * numRows
+        temp[0] += s[0]
 
-        direction = 1
         current = 1
-        result[0].append(s[0])
-        for idx, c in enumerate(s[1:]):
-            result[current].append(c)
-            if current == numRows - 1:
+        direction = 1
+        for i in range(1, len(s)):
+            temp[current] += s[i]
+            mod = current % numRows
+            if mod == numRows - 1:
                 direction = direction * -1
-            if current == 0:
+            elif mod == 0:
                 direction = direction * -1
             current += direction
-        converted = ''
-        for r in result:
-            converted += ''.join(r)
-        return converted
+        result = ""
+        for t in temp:
+            result += t
+        return result
+
+    # def convert(self, s: str, numRows: int) -> str:
+    #     if len(s) == 0:
+    #         return s
+    #     if numRows == 1:
+    #         return s
+
+    #     result = []
+    #     for _ in range(numRows):
+    #         result.append([])
+
+    #     direction = 1
+    #     current = 1
+    #     result[0].append(s[0])
+    #     for idx, c in enumerate(s[1:]):
+    #         result[current].append(c)
+    #         if current == numRows - 1:
+    #             direction = direction * -1
+    #         if current == 0:
+    #             direction = direction * -1
+    #         current += direction
+    #     converted = ''
+    #     for r in result:
+    #         converted += ''.join(r)
+    #     return converted
 
 
 # @lc code=end

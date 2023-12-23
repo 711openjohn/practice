@@ -67,14 +67,14 @@ class Solution:
                 return [TreeNode(l)]
 
             ans = []
-
             for root in range(l, r + 1):
                 leftNodes = dfs(l, root - 1)
                 rightNodes = dfs(root + 1, r)
                 for ln in leftNodes:
                     for rn in rightNodes:
-                        ans.append(TreeNode(val=root, left=ln, right=rn))
+                        ans.append(TreeNode(root, left=ln, right=rn))
             return ans
+
         return dfs(1, n)
 
         # @lru_cache(None)
