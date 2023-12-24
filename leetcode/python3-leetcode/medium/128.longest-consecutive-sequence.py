@@ -49,28 +49,26 @@
 # @lc code=start
 class Solution(object):
     def longestConsecutive(self, nums):
-        if not nums:
+        if len(nums) == 0:
             return 0
-
         nums.sort(key=lambda x: x)
         lookup = {nums[-1]: False}
-        for idx in range(len(nums) - 1):
-            if nums[idx] + 1 == nums[idx + 1]:
-                lookup[nums[idx]] = True
-            else:
-                lookup[nums[idx]] = False
 
-        keys = sorted(lookup.keys())
-
-        cursor = 1
-        longest = 1
-        for k in keys:
-            if lookup[k]:
-                cursor += 1
+        for i in range(0, len(nums) - 1):
+            if nums[i] + 1 == nums[i + 1]:
+                lookup[nums[i]] = True
             else:
-                longest = max(longest, cursor)
-                cursor = 1
-        return longest
+                lookup[nums[i]] = False
+
+        count = 1
+        max_count = 1
+        for key in sorted(lookup.keys()):
+            if lookup[key]:
+                count += 1
+            else:
+                max_count = max(max_count, count)
+                count = 1
+        return max_count
 
     # def longestConsecutive(self, nums):
     #     """

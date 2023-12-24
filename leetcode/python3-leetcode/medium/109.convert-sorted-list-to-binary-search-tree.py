@@ -78,9 +78,20 @@ class Solution(object):
 
         if not head.next:
             return TreeNode(val=head.val)
-        
+
         slow = head
-        fast
+        fast = head.next.next
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        root = TreeNode(slow.next.val)
+        right = slow.next.next
+        slow.next = None
+        root.left = self.sortedListToBST(head)
+        root.right = self.sortedListToBST(right)
+        return root
 
     # def sortedListToBST(self, head):
     #     """

@@ -85,11 +85,10 @@ class Node:
 
 class Solution:
     def connect(self, root: "Optional[Node]") -> "Optional[Node]":
-        if root is None:
-            return None
+        if not root:
+            return root
 
-        queue = collections.deque()
-        queue.append(root)
+        queue = collections.deque([root])
         next_level = []
         while queue:
             top = queue.popleft()
@@ -98,11 +97,31 @@ class Solution:
             if top.right:
                 next_level.append(top.right)
             if len(queue) == 0:
-                for i in range(len(next_level) - 1):
+                for i in range(0, len(next_level) - 1):
                     next_level[i].next = next_level[i + 1]
                 queue = collections.deque(next_level)
                 next_level = []
         return root
+
+    # def connect(self, root: "Optional[Node]") -> "Optional[Node]":
+    #     if root is None:
+    #         return None
+
+    #     queue = collections.deque()
+    #     queue.append(root)
+    #     next_level = []
+    #     while queue:
+    #         top = queue.popleft()
+    #         if top.left:
+    #             next_level.append(top.left)
+    #         if top.right:
+    #             next_level.append(top.right)
+    #         if len(queue) == 0:
+    #             for i in range(len(next_level) - 1):
+    #                 next_level[i].next = next_level[i + 1]
+    #             queue = collections.deque(next_level)
+    #             next_level = []
+    #     return root
 
     # def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
     #     if not root:
