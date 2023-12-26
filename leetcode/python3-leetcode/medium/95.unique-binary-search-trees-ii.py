@@ -60,22 +60,25 @@ class TreeNode:
 class Solution:
     def generateTrees(self, n: int) -> List[Optional[TreeNode]]:
         @lru_cache(None)
-        def dfs(l, r):
+        def gen(l, r):
             if l > r:
                 return [None]
             if l == r:
-                return [TreeNode(l)]
+                return [TreeNode(val=l)]
 
-            ans = []
+            result = []
             for root in range(l, r + 1):
-                leftNodes = dfs(l, root - 1)
-                rightNodes = dfs(root + 1, r)
+                leftNodes = gen(l, root - 1)
+                rightNodes = gen(root + 1, r)
                 for ln in leftNodes:
                     for rn in rightNodes:
-                        ans.append(TreeNode(root, left=ln, right=rn))
-            return ans
+                        node = TreeNode(val=root)
+                        node.left = ln
+                        node.right = rn
+                        result.append(node)
+            return result
 
-        return dfs(1, n)
+        return gen(1, n)
 
         # @lru_cache(None)
         # def dfs(left, right):

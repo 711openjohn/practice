@@ -52,15 +52,17 @@ from typing import List
 
 class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        if len(intervals) <= 1:
+            return intervals
         intervals.sort(key=lambda x: x[0])
-        result = [intervals[0]]
-
+        result = []
+        result.append(intervals[0])
         for i in range(1, len(intervals)):
-            current = intervals[i]
-            if current[0] <= result[-1][1]:
-                result[-1][1] = max(result[-1][1], current[1])
+            if intervals[i][0] <= result[-1][1]:
+                result[-1][0] = min(result[-1][0], intervals[i][0])
+                result[-1][1] = max(result[-1][1], intervals[i][1])
             else:
-                result.append(current)
+                result.append(intervals[i])
         return result
 
     # def merge(self, intervals: List[List[int]]) -> List[List[int]]:

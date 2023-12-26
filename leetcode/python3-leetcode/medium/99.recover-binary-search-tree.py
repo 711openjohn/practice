@@ -75,49 +75,70 @@ class TreeNode:
 #         self.right = right
 class Solution:
     def recoverTree(self, root: TreeNode) -> None:
-        """
-        Do not return anything, modify root in-place instead.
-        """
         start = None
         prev = None
-        last = None
+        end = None
 
-        def dfs(root):
-            nonlocal start, prev, last
+        def inorder(root):
             if not root:
-                return
-            dfs(root.left)
+                return None
+            nonlocal start, prev, end
+            inorder(root.left)
             if prev and prev.val > root.val:
                 if not start:
                     start = prev
-                last = root
+                end = root
             prev = root
-            dfs(root.right)
+            inorder(root.right)
 
-        dfs(root)
-        if start and last:
-            start.val, last.val = last.val, start.val
+        inorder(root)
+        if start:
+            start.val, end.val = end.val, start.val
 
-        # start = None
-        # prev = None
-        # last = None
+    # def recoverTree(self, root: TreeNode) -> None:
+    #     """
+    #     Do not return anything, modify root in-place instead.
+    #     """
+    #     start = None
+    #     prev = None
+    #     last = None
 
-        # def dfs(root):
-        #     nonlocal start, prev, last
-        #     if not root:
-        #         return
-        #     dfs(root.left)
+    #     def dfs(root):
+    #         nonlocal start, prev, last
+    #         if not root:
+    #             return
+    #         dfs(root.left)
+    #         if prev and prev.val > root.val:
+    #             if not start:
+    #                 start = prev
+    #             last = root
+    #         prev = root
+    #         dfs(root.right)
 
-        #     if prev and prev.val > root.val:
-        #         if not start:
-        #             start = prev
-        #         last = root
-        #     prev = root
-        #     dfs(root.right)
+    #     dfs(root)
+    #     if start and last:
+    #         start.val, last.val = last.val, start.val
 
-        # dfs(root)
-        # if start and last:
-        #     start.val, last.val = last.val, start.val
+    # start = None
+    # prev = None
+    # last = None
+
+    # def dfs(root):
+    #     nonlocal start, prev, last
+    #     if not root:
+    #         return
+    #     dfs(root.left)
+
+    #     if prev and prev.val > root.val:
+    #         if not start:
+    #             start = prev
+    #         last = root
+    #     prev = root
+    #     dfs(root.right)
+
+    # dfs(root)
+    # if start and last:
+    #     start.val, last.val = last.val, start.val
 
 
 # @lc code=end

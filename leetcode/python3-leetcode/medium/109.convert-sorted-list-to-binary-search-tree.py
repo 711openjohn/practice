@@ -73,6 +73,23 @@ class TreeNode:
 
 class Solution(object):
     def sortedListToBST(self, head):
+        slow = head
+        fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        root_pointer = slow.next
+        right_head = root_pointer.next
+        slow.next = None
+
+        root = TreeNode(val=root_pointer.val)
+        root.left(self.sortedListToBST(head))
+        root.right(self.sortedListToBST(right_head))
+
+        return root
+
+    def sortedListToBST(self, head):
         if not head:
             return None
 

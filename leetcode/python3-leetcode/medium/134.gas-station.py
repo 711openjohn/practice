@@ -78,18 +78,31 @@ from typing import List
 
 class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
-        trip_tank = 0
-        curr_tank = 0
+        trip_cost = 0
+        curr_cost = 0
         start = 0
         n = len(gas)
+        for stop in range(n):
+            trip_cost += gas[stop] - cost[stop]
+            curr_cost += gas[stop] - cost[stop]
+            if curr_cost < 0:
+                start = stop + 1
+                curr_cost = 0
+        return start if trip_cost >= 0 else -1
 
-        for i in range(n):
-            trip_tank += gas[i] - cost[i]
-            curr_tank += gas[i] - cost[i]
-            if curr_tank < 0:
-                start += 1
-                curr_tank = 0
-        return start if trip_tank >= 0 else -1
+    # def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+    #     trip_tank = 0
+    #     curr_tank = 0
+    #     start = 0
+    #     n = len(gas)
+
+    #     for i in range(n):
+    #         trip_tank += gas[i] - cost[i]
+    #         curr_tank += gas[i] - cost[i]
+    #         if curr_tank < 0:
+    #             start += 1
+    #             curr_tank = 0
+    #     return start if trip_tank >= 0 else -1
 
     # def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
     #     trip_tank, curr_tank, start, n = 0, 0, 0, len(gas)

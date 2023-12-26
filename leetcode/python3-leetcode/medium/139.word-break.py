@@ -71,35 +71,25 @@ class Solution:
         n = len(s)
         dp = [False] * (n + 1)
         dp[0] = True
-
         for i in range(1, n + 1):
-            for j in range(i):
+            for j in range(0, i):
                 if dp[j] and s[j:i] in wordDict:
                     dp[i] = True
                     break
         return dp[n]
 
     # def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-    #     exists = set(wordDict)
-    #     exists.add("")
+    #     n = len(s)
+    #     dp = [False] * (n + 1)
+    #     dp[0] = True
 
-    #     @lru_cache(None)
-    #     def check(word):
-    #         if word in exists:
-    #             return True
-
-    #         for i in range(1, len(word)):
-    #             left = word[0:i]
-    #             l_check = check(left)
-    #             right = word[i:]
-    #             r_check = check(right)
-
-    #             if l_check and r_check:
-    #                 exists.add(word)
-    #                 return True
-    #         return False
-
-    #     return check(s)
+    #     for i in range(1, n + 1):
+    #         for j in range(i):
+    #             print(s[j:i])
+    #             if dp[j] and s[j:i] in wordDict:
+    #                 dp[i] = True
+    #                 break
+    #     return dp[n]
 
 
 # @lc code=end

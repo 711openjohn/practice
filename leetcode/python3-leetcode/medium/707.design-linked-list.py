@@ -85,39 +85,63 @@ class ListNode:
 
 class MyLinkedList:
     def __init__(self):
-        self.dummy_head = ListNode()
         self.size = 0
+        self.vh = ListNode()
+
+    def p(self):
+        c = self.vh
+        result = []
+        while c.next:
+            result.append(c.next.val)
+            c = c.next
+        return result
 
     def get(self, index: int) -> int:
-        if index < 0 or index >= self.size:
+        if index > self.size:
             return -1
 
-        current = self.dummy_head.next
-        for i in range(index):
-            current = current.next
-
-        return current.val
+        i = 0
+        cur = self.vh.next
+        while cur:
+            if i == index:
+                return cur.val
+            cur = cur.next
+            i += 1
+        return -1
 
     def addAtHead(self, val: int) -> None:
-        self.dummy_head.next = ListNode(val, self.dummy_head.next)
+        node = ListNode(val=val)
+        tail = self.vh.next
+        self.vh.next = node
+        node.next = tail
         self.size += 1
 
     def addAtTail(self, val: int) -> None:
-        current = self.dummy_head
-        while current.next:
-            current = current.next
-        current.next = ListNode(val)
         self.size += 1
+        prev = self.vh
+        cur = self.vh.next
+        while cur:
+            prev = cur
+            cur = cur.next
+        prev.next = ListNode(val)
 
     def addAtIndex(self, index: int, val: int) -> None:
         if index < 0 or index > self.size:
             return
-
-        current = self.dummy_head
-        for i in range(index):
-            current = current.next
-        current.next = ListNode(val, current.next)
         self.size += 1
+        prev = self.vh
+        cur = self.vh.next
+
+        i = 0
+        while cur:
+            if i == index:
+                break
+            prev = cur
+            cur = cur.next
+            i += 1
+
+        prev.next = ListNode(val=val)
+        prev.next.next = cur
 
     def deleteAtIndex(self, index: int) -> None:
         if index < 0 or index >= self.size:
@@ -130,6 +154,53 @@ class MyLinkedList:
         self.size -= 1
 
 
+# class MyLinkedList:
+#     def __init__(self):
+#         self.dummy_head = ListNode()
+#         self.size = 0
+
+#     def get(self, index: int) -> int:
+#         if index < 0 or index >= self.size:
+#             return -1
+
+#         current = self.dummy_head.next
+#         for i in range(index):
+#             current = current.next
+
+#         return current.val
+
+#     def addAtHead(self, val: int) -> None:
+#         self.dummy_head.next = ListNode(val, self.dummy_head.next)
+#         self.size += 1
+
+#     def addAtTail(self, val: int) -> None:
+#         current = self.dummy_head
+#         while current.next:
+#             current = current.next
+#         current.next = ListNode(val)
+#         self.size += 1
+
+#     def addAtIndex(self, index: int, val: int) -> None:
+#         if index < 0 or index > self.size:
+#             return
+
+#         current = self.dummy_head
+#         for i in range(index):
+#             current = current.next
+#         current.next = ListNode(val, current.next)
+#         self.size += 1
+
+#     def deleteAtIndex(self, index: int) -> None:
+#         if index < 0 or index >= self.size:
+#             return
+
+#         current = self.dummy_head
+#         for i in range(index):
+#             current = current.next
+#         current.next = current.next.next
+#         self.size -= 1
+
+
 # Your MyLinkedList object will be instantiated and called as such:
 # obj = MyLinkedList()
 # param_1 = obj.get(index)
@@ -138,3 +209,6 @@ class MyLinkedList:
 # obj.addAtIndex(index,val)
 # obj.deleteAtIndex(index)
 # @lc code=end
+
+
+# [null,null,null,null,null,null,null,8,null,6,7,null]

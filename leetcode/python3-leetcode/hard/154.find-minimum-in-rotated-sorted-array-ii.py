@@ -57,18 +57,45 @@
 #
 #
 
+from typing import List
 
 # @lc code=start
+
+# 123 4 567
+
+# 712 3 456
+# 671 2 345
+# 567 1 234
+
+# 456 7 123
+# 345 6 712
+# 234 5 671
+
+
 class Solution:
     def findMin(self, nums: List[int]) -> int:
-        lo, hi = 0, len(nums) - 1
-        while lo < hi:
-            mid = int(lo + (hi - lo) / 2)
-            if nums[mid] > nums[hi]:
-                lo = mid + 1
+        l = 0
+        r = len(nums) - 1
+        while l <= r:
+            mid = (l + r) // 2
+            if nums[mid] > nums[r]:
+                l = mid + 1
             else:
-                hi = mid if nums[hi] != nums[mid] else hi - 1
-        return nums[lo]
+                r = mid if nums[r] != nums[mid] else r - 1
+        return nums[l]
+
+    # def findMin(self, nums: List[int]) -> int:
+    #     l = 0
+    #     r = len(nums) - 1
+
+    #     while l <= r:
+    #         mid = (l + r) // 2
+    #         if nums[mid] > nums[r]:
+    #             l = mid + 1
+    #         else:
+    #             r = mid if nums[r] != nums[mid] else r - 1
+    #     return nums[l]
 
 
 # @lc code=end
+Solution().findMin([5, 6, 7, 1, 2, 3, 4])
