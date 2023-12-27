@@ -91,13 +91,24 @@ class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
         slow = 0
         fast = 0
-        size = len(nums)
-        while fast < size:
+        while fast < len(nums):
             if nums[fast] != val:
                 nums[slow] = nums[fast]
                 slow += 1
             fast += 1
         return slow
 
+    # def removeElement(self, nums: List[int], val: int) -> int:
+    #     slow = 0
+    #     fast = 0
+    #     size = len(nums)
+    #     while fast < size:
+    #         if nums[fast] != val:
+    #             nums[slow] = nums[fast]
+    #             slow += 1
+    #         fast += 1
+    #     return slow
+
 
 # @lc code=end
+Solution().removeElement([2, 3, 3, 2], 3)

@@ -44,6 +44,7 @@
 class Solution:
     def canConstruct(self, ransomNote: str, magazine: str) -> bool:
         lookup = {}
+
         for m in magazine:
             lookup[m] = lookup.get(m, 0) + 1
 

@@ -69,13 +69,25 @@ from typing import Optional
 class Solution:
     def removeElements(self, head: ListNode, val: int) -> Optional[ListNode]:
         dummy = ListNode(next=head)
-        current = dummy
-        while current.next:
-            if current.next.val == val:
-                current.next = current.next.next
+        pre = dummy
+        cur = dummy.next
+        while cur:
+            if cur.val == val:
+                pre.next = cur.next
             else:
-                current = current.next
+                pre = cur
+            cur = cur.next
         return dummy.next
+
+    # def removeElements(self, head: ListNode, val: int) -> Optional[ListNode]:
+    #     dummy = ListNode(next=head)
+    #     current = dummy
+    #     while current.next:
+    #         if current.next.val == val:
+    #             current.next = current.next.next
+    #         else:
+    #             current = current.next
+    #     return dummy.next
 
 
 # @lc code=end

@@ -66,13 +66,24 @@ from typing import List
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         cache = {}
-        for idx, num in enumerate(nums):
-            side = target - num
-            if side in cache:
-                return [cache.get(side), idx]
-            else:
-                cache[num] = idx
+        for i in range(len(nums)):
+            n = nums[i]
+            if (target - n) not in cache:
+                cache[n] = i
+                continue
+
+            return [cache[target - n], i]
         return []
+
+    # def twoSum(self, nums: List[int], target: int) -> List[int]:
+    #     cache = {}
+    #     for idx, num in enumerate(nums):
+    #         side = target - num
+    #         if side in cache:
+    #             return [cache.get(side), idx]
+    #         else:
+    #             cache[num] = idx
+    #     return []
 
 
 # @lc code=end

@@ -125,37 +125,70 @@ class ListNode:
 
 class Solution:
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
-        cur_a = headA
-        cur_b = headB
-        len_a = 0
-        len_b = 0
+        def calculate_length(node):
+            length = 0
+            curr = node
+            while curr:
+                curr = curr.next
+                length += 1
+            return length
 
-        while cur_a:
-            cur_a = cur_a.next
-            len_a += 1
-
-        while cur_b:
-            cur_b = cur_b.next
-            len_b += 1
-
-        cur_a = headA
-        cur_b = headB
-        diff = abs(len_a - len_b)
+        len_a = calculate_length(headA)
+        len_b = calculate_length(headB)
+        curr_a = headA
+        curr_b = headB
+        diff = abs(len_b - len_a)
         if len_a > len_b:
-            for i in range(diff):
-                cur_a = cur_a.next
+            while diff > 0:
+                curr_a = curr_a.next
+                diff -= 1
         else:
-            for i in range(diff):
-                cur_b = cur_b.next
+            while diff > 0:
+                curr_b = curr_b.next
+                diff -= 1
 
-        while cur_a:
-            if cur_a == cur_b:
-                return cur_a
-
-            cur_a = cur_a.next
-            cur_b = cur_b.next
+        while curr_a:
+            if curr_a == curr_b:
+                return curr_a
+            curr_a = curr_a.next
+            curr_b = curr_b.next
 
         return None
+
+
+# class Solution:
+#     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+#         cur_a = headA
+#         cur_b = headB
+#         len_a = 0
+#         len_b = 0
+
+#         while cur_a:
+#             cur_a = cur_a.next
+#             len_a += 1
+
+#         while cur_b:
+#             cur_b = cur_b.next
+#             len_b += 1
+
+#         cur_a = headA
+#         cur_b = headB
+#         diff = abs(len_a - len_b)
+#         if len_a > len_b:
+#             for i in range(diff):
+#                 cur_a = cur_a.next
+#         else:
+#             for i in range(diff):
+#                 cur_b = cur_b.next
+
+#         while cur_a:
+#             if cur_a == cur_b:
+#                 return cur_a
+
+#             cur_a = cur_a.next
+#             cur_b = cur_b.next
+
+#         return None
 
 
 # @lc code=end
