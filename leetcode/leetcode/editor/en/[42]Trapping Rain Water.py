@@ -38,16 +38,37 @@ class Solution:
         stack = [0]
         result = 0
         for i in range(1, len(height)):
-            while stack and height[i] > height[stack[-1]]:
-                mid_height = stack.pop()
-                if stack:
-                    # 雨水高度是 min(凹槽左侧高度, 凹槽右侧高度) - 凹槽底部高度
-                    h = min(height[stack[-1]], height[i]) - height[mid_height]
-                    # 雨水宽度是 凹槽右侧的下标 - 凹槽左侧的下标 - 1
-                    w = i - stack[-1] - 1
-                    # 累计总雨水体积
-                    result += h * w
-            stack.append(i)
+            if height[i] < height[stack[-1]]:
+                stack.append(i)
+            if height[i] == height[stack[-1]]:
+                stack.pop()
+                stack.append(i)
+            else:
+                while stack and height[i] > height[stack[-1]]:
+                    mid = stack.pop()
+                    if stack:
+                        h = min(height[stack[-1]], height[i]) - height[mid]
+                        w = i - stack[-1] - 1
+                        result += h * w
+                stack.append(i)
         return result
+
+    # def trap(self, height: List[int]) -> int:
+    #     stack = [0]
+    #     result = 0
+    #     for i in range(1, len(height)):
+    #         while stack and height[i] > height[stack[-1]]:
+    #             mid_height = stack.pop()
+    #             if stack:
+    #                 # 雨水高度是 min(凹槽左侧高度, 凹槽右侧高度) - 凹槽底部高度
+    #                 h = min(height[stack[-1]], height[i]) - height[mid_height]
+    #                 # 雨水宽度是 凹槽右侧的下标 - 凹槽左侧的下标 - 1
+    #                 w = i - stack[-1] - 1
+    #                 # 累计总雨水体积
+    #                 result += h * w
+    #         stack.append(i)
+    #     return result
+
+
 # leetcode submit region end(Prohibit modification and deletion)
-Solution().trap([0,1,0,2,1,0,1,3,2,1,2,1])
+Solution().trap([0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1])
