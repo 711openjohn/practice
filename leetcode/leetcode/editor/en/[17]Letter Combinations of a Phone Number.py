@@ -36,20 +36,39 @@
 #  
 # 
 #  👍 17772 👎 931
+from typing import List
 
-
+# time O(3^m * 4^n)
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
+        if len(digits) == 0:
+            return []
         lookup = {
-            '2': 'abc'
+            '2': 'abc',
+            '3': 'def',
+            '4': 'ghi',
+            '5': 'jkl',
+            '6': 'mno',
+            '7': 'pqrs',
+            '8': 'tuv',
+            '9': 'wxyz'
         }
-        result = []
-
         def backtracking(i, result, path):
             if len(path) == len(digits):
                 result.append(''.join(path))
+                return
 
+            digit = digits[i]
+            for c in lookup.get(digit):
+                path.append(c)
+                backtracking(i + 1, result, path)
+                path.pop()
 
+        result = []
+        backtracking(0, result, [])
+
+        return result
 
 # leetcode submit region end(Prohibit modification and deletion)
+Solution().letterCombinations('239')
