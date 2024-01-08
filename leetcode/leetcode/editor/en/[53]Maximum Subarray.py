@@ -50,8 +50,19 @@ class Solution:
         dp = [i for i in nums]
         result = dp[0]
         for i in range(1, len(nums)):
-            dp[i] = max(dp[i-1] + nums[i], nums[i])
+            dp[i] = max(dp[i], dp[i] + dp[i - 1])
             result = max(result, dp[i])
         return result
+    # def maxSubArray(self, nums: List[int]) -> int:
+    #     if len(nums) == 1:
+    #         return nums[0]
+    #     dp = [i for i in nums]
+    #     result = dp[0]
+    #     for i in range(1, len(nums)):
+    #         dp[i] = max(dp[i-1] + nums[i], nums[i])
+    #         result = max(result, dp[i])
+    #     return result
+
+
 # leetcode submit region end(Prohibit modification and deletion)
-Solution().maxSubArray([-2,1,-3,4,-1,2,1,-5,4])
+Solution().maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4])

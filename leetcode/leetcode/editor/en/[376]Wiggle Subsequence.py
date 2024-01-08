@@ -63,12 +63,22 @@ class Solution:
     def wiggleMaxLength(self, nums: List[int]) -> int:
         if len(nums) <= 1:
             return len(nums)
-        preDiff, curDiff, result = 0, 0, 1
+        prev, cur, result = 0, 0 ,1
         for i in range(len(nums) - 1):
-            curDiff = nums[i + 1] - nums[i]
-            if curDiff * preDiff <= 0 and curDiff != 0:
+            cur = nums[i + 1] - nums[i]
+            if cur * prev <= 0 and cur != 0:
                 result += 1
-                preDiff = curDiff
+                prev = cur
         return result
+    # def wiggleMaxLength(self, nums: List[int]) -> int:
+    #     if len(nums) <= 1:
+    #         return len(nums)
+    #     preDiff, curDiff, result = 0, 0, 1
+    #     for i in range(len(nums) - 1):
+    #         curDiff = nums[i + 1] - nums[i]
+    #         if curDiff * preDiff <= 0 and curDiff != 0:
+    #             result += 1
+    #             preDiff = curDiff
+    #     return result
 
 # leetcode submit region end(Prohibit modification and deletion)
