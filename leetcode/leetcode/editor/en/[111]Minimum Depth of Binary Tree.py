@@ -43,8 +43,16 @@ class Solution:
         def min_level(root, level):
             if root is None:
                 return level
-            return min(min_level(root.left, level + 1), min_level(root.right, level + 1))
-        if not root:
-            return 0
+
+            left = min_level(root.left, level + 1)
+            right = min_level(root.right, level + 1)
+
+            if root.left and root.right:
+                return min(left, right)
+            elif root.left:
+                return left
+            elif root.right:
+                return right
+            return level + 1
         return min_level(root, 0)
             # leetcode submit region end(Prohibit modification and deletion)
