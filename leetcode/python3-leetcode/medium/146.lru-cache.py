@@ -73,6 +73,11 @@ from collections import deque
 import heapq
 from time import time
 
+class DoubleLinkedList(object):
+    def __init__(self, val):
+        self.val = val
+        self.prev = None
+        self.next = None
 
 class LRUCache(object):
     def __init__(self, capacity):

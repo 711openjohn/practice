@@ -37,15 +37,32 @@ class Solution:
         if not nums:
             return 0
         exists = set(nums)
-        max_seq = 1
-        for num in exists:
-            if (num - 1) not in exists:
-                current = num
-                local_seq = 1
-                while (current + 1) in exists:
-                    local_seq += 1
+        result = 1
+        for i in exists:
+            if i - 1 not in exists:
+                seq = 1
+                current = i
+                while current + 1 in exists:
                     current += 1
-                    max_seq = max(max_seq, local_seq)
-        return max_seq
-        
+                    seq += 1
+                    result = max(result, seq)
+        return result
+
+    # def longestConsecutive(self, nums):
+    #     if not nums:
+    #         return 0
+    #     exists = set(nums)
+    #     max_seq = 1
+    #     for num in exists:
+    #         if (num - 1) not in exists:
+    #             current = num
+    #             local_seq = 1
+    #             while (current + 1) in exists:
+    #                 local_seq += 1
+    #                 current += 1
+    #                 max_seq = max(max_seq, local_seq)
+    #     return max_seq
+
+
 # leetcode submit region end(Prohibit modification and deletion)
+Solution().longestConsecutive([0, 3, 7, 2, 5, 8, 4, 6, 0, 1])

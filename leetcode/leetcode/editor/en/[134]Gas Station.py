@@ -61,18 +61,36 @@ from typing import List
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
-        curr = 0
-        total = 0
-        start = 0
+        diff = []
         for i in range(len(gas)):
-            curr += gas[i] - cost[i]
-            total += gas[i] - cost[i]
-            if curr < 0:
-                start = i + 1
-                curr = 0
+            diff.append(gas[i] - cost[i])
+
+        total = 0
+        result = 0
+        current = 0
+        for i in range(len(gas)):
+            total += diff[i]
+            current += diff[i]
+            if current < 0:
+                result = i + 1
+                current = 0
+
         if total < 0:
             return -1
-        return start
+        return result
+    # def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+    #     curr = 0
+    #     total = 0
+    #     start = 0
+    #     for i in range(len(gas)):
+    #         curr += gas[i] - cost[i]
+    #         total += gas[i] - cost[i]
+    #         if curr < 0:
+    #             start = i + 1
+    #             curr = 0
+    #     if total < 0:
+    #         return -1
+    #     return start
     # def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
     #     curSum = 0
     #     totalSum = 0
